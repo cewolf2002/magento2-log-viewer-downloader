@@ -125,6 +125,10 @@ class Logs
                     'action_download' => $this->backendUrl->getUrl(
                         'adeelq_logs/logs/download',
                         [self::FILE_PARAM => $pathInfo['basename']]
+                    ),
+                    'action_clear' => $this->backendUrl->getUrl(
+                        'adeelq_logs/logs/clear',
+                        [self::FILE_PARAM => $pathInfo['basename']]
                     )
                 ],
                 $this->convertTimestampsToDatetime(
@@ -155,5 +159,40 @@ class Logs
         } catch (Throwable) {
             return $timestamps;
         }
+    }
+    /**
+     * 清空指定 log 檔案內容
+     *
+     * @param string $fileName
+     * @return bool
+     */
+    public function clearLogFile(string $fileName): bool
+    {
+        try {
+            $filePath = self::LOG_FILE . DIRECTORY_SEPARATOR . $fileName;
+            if ($this->varDir->isFile($filePath)) {
+                $absolutePath = $this->varDir->getAbsolutePath($filePath);
+                // 清空檔案內容
+                return file_put_contents($absolutePath, '') !== false;
+            }
+        } catch (\Throwable $e) {
+            // 可以加 log
+        }
+        return false;
+    }
+    /**
+     * 取得批次清空的 action url
+     */
+    public function getBatchClearUrl(): string
+    {
+        return $this->backendUrl->getUrl('adeelq_logs/logs/clearBatch');
+    }
+
+    /**
+     * 提供 Block 取得 backendUrl
+     */
+    public function getBackendUrl(): \Magento\Backend\Model\UrlInterface
+    {
+        return $this->backendUrl;
     }
 }

@@ -2,13 +2,21 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
     <menu>
         <add
+            id="Adeelq_CoreLogFileReader::LogGroup"
+            title="Log 管理"
+            module="Adeelq_CoreLogFileReader"
+            sortOrder="500"
+            resource="Adeelq_CoreLogFileReader::CoreLogFileReader"
+            parent="Magento_Backend::system"
+        />
+        <add
             id="Adeelq_CoreLogFileReader::CoreLogFileReader"
             title="View Log Files"
             module="Adeelq_CoreLogFileReader"
-            sortOrder="100"
+            sortOrder="10"
             action="adeelq_logs/logs"
             resource="Adeelq_CoreLogFileReader::CoreLogFileReader"
-            parent="Adeelq_CoreModule::Reports"
+            parent="Adeelq_CoreLogFileReader::LogGroup"
         />
     </menu>
 </config>

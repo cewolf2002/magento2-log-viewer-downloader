@@ -3,20 +3,18 @@
 namespace Adeelq\CoreLogFileReader\Controller\Adminhtml\Logs;
 
 use Adeelq\CoreLogFileReader\Controller\Adminhtml\Logs;
-use Adeelq\CoreModule\Controller\Adminhtml\AbstractIndex;
+use Magento\Backend\App\Action;
 
-class Index extends AbstractIndex
+
+class Index extends Action
 {
     /**
      * @inheritDoc
      */
     const ADMIN_RESOURCE = Logs::ADMIN_RESOURCE;
 
-    /**
-     * @inheritDoc
-     */
-    protected function getLabelTitle(): string
+    public function execute()
     {
-        return 'Log Files';
+        return $this->resultFactory->create(\Magento\Framework\Controller\ResultFactory::TYPE_PAGE);
     }
 }

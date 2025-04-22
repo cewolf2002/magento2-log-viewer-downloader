@@ -11,7 +11,7 @@
         }
     ],
     "require": {
-        "adeelq/magento2-core-module": ">=1.0"
+
     },
     "repositories": [
         {

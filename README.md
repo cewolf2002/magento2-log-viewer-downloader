@@ -8,7 +8,6 @@ A module that shows list of all log files from var/log folder. User can view the
 ## Requirements
 
 - Magento 2.3+
-- Adeelq core module
 
 ## Installation
 

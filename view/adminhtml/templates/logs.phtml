@@ -3,9 +3,18 @@ use Adeelq\CoreLogFileReader\Block\Adminhtml\Logs;
 /** @var Logs $block */
 ?>
 <div class="admin__data-grid-wrap admin__data-grid-wrap-static">
+    <form id="batch-clear-form" method="post" action="<?= $block->getLogHelper()->getBatchClearUrl() ?>">
+        <input name="form_key" type="hidden" value="<?= $block->getFormKey() ?>" />
+        <button type="submit" style="margin-bottom:16px;display:inline-block;" onclick="return confirm('Are you sure you want to clear selected logs?');">
+            <?= __('Batch Clear') ?>
+        </button>
+        <br/>
     <table class="data-grid" id="adeelq-list-log-files">
         <thead>
             <tr>
+                <th class="data-grid-th" style="width:32px;text-align:center;">
+                    <input type="checkbox" id="select-all" />
+                </th>
                 <th class="data-grid-th">
                         <span>
                             <?= __('File Name') ?>
@@ -36,6 +45,9 @@ use Adeelq\CoreLogFileReader\Block\Adminhtml\Logs;
         <tbody>
             <?php foreach ($block->getLogHelper()->getLogFiles() as $logFile): ?>
                 <tr>
+                    <td style="width:32px;text-align:center;">
+                        <input type="checkbox" name="logs[]" value="<?= $block->escaper->escapeHtml($logFile['base_name']) ?>" class="log-checkbox" />
+                    </td>
                     <td>
                         <?= $block->escaper->escapeHtml($logFile['base_name']) ?>
                     </td>
@@ -56,9 +68,22 @@ use Adeelq\CoreLogFileReader\Block\Adminhtml\Logs;
                         <a href="<?= $block->escaper->escapeUrl($logFile['action_download']) ?>" target="_self">
                             <?= __('Download') ?>
                         </a>
+                        <span> / </span>
+                        <a href="<?= $block->escaper->escapeUrl($logFile['action_clear']) ?>" target="_self" onclick="return confirm('Are you sure you want to clear this log?');">
+                            <?= __('Clear') ?>
+                        </a>
                     </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
+</form>
 </div>
+<script>
+    document.getElementById('select-all').addEventListener('change', function() {
+        var checkboxes = document.querySelectorAll('.log-checkbox');
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].checked = this.checked;
+        }
+    });
+</script>

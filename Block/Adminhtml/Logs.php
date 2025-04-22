@@ -25,11 +25,17 @@ class Logs extends Container
      * @param LogsHelper $logsHelper
      * @param array $data
      */
-    public function __construct(Context $context, Escaper $escaper, LogsHelper $logsHelper, array $data = [])
+    /**
+     * @var \Magento\Framework\Data\Form\FormKey
+     */
+    private \Magento\Framework\Data\Form\FormKey $_formKey;
+
+    public function __construct(Context $context, Escaper $escaper, LogsHelper $logsHelper, \Magento\Framework\Data\Form\FormKey $formKey, array $data = [])
     {
         parent::__construct($context, $data);
         $this->escaper = $escaper;
         $this->logsHelper = $logsHelper;
+        $this->_formKey = $formKey;
     }
 
     /**
@@ -38,5 +44,21 @@ class Logs extends Container
     public function getLogHelper(): LogsHelper
     {
         return $this->logsHelper;
+    }
+
+    /**
+     * 提供 logs.phtml 批次清空的 url
+     */
+    public function getBatchClearUrl(): string
+    {
+        return $this->logsHelper->getBatchClearUrl();
+    }
+
+    /**
+     * 取得 CSRF 防護用 form_key
+     */
+    public function getFormKey()
+    {
+        return $this->_formKey->getFormKey();
     }
 }

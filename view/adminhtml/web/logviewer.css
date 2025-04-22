@@ -1,0 +1,16 @@
+.adeelq-logs-container {
+    margin: 1.5em 0;
+}
+.adeelq-logs-pre {
+    color: #00c800;
+    background: #111;
+    font-size: 1.15em;
+    line-height: 1.6;
+    padding: 1.5em;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    overflow-x: auto;
+    font-family: 'Fira Mono', 'Consolas', 'Menlo', 'Monaco', monospace;
+    word-break: break-all;
+    white-space: pre-wrap;
+}
